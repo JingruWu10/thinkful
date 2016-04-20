@@ -67,3 +67,4 @@ def linear_function(FICO, Amount):
 	print "Amount = " + str(Amount)
 	interest_rate = (f.params[0] + f.params[1]*FICO + f.params[2]*Amount)
 	print "Expected interest rate = " + str(interest_rate)
+print linear_function(600,10000)
