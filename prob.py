@@ -6,6 +6,8 @@ import scipy.stats as stats
 #frequency
 testlist = [1, 2, 3, 3, 3, 4, 5, 6, 6, 6]
 c = collections.Counter(testlist)
+print c
+count_sum=sum(c.values())
 for k,v in c.iteritems():
 	print "The frequency of the number " + str(k) + " is " + str(float(v) / count_sum)
 
