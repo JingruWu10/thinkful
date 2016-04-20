@@ -1,4 +1,5 @@
 import pandas as pd
+from scipy import stats
 
 data = '''Region, Alcohol, Tobacco
 North, 6.47, 4.03
@@ -17,7 +18,8 @@ data=data.splitlines()
 data= [i.split(', ') for i in data]
 column_names = data[0]
 data_rows = data[1::]
-df = pd.DataFrame(data_rows, columns=columen_names)
+df = pd.DataFrame(data_rows, columns=column_names)
+print df
 df['Alcohol'] = df['Alcohol'].astype(float)
 df['Tobacco'] = df['Tobacco'].astype(float)
 
@@ -30,10 +32,12 @@ print('Median consumption of Alcohol and Tobacco are: %s, %s' %(df['Alcohol'].me
 #Standard Deviation
 print('Standard deviation of Alcohol and Tobacco consumption are: %s, %s' %(df['Alcohol'].std(), df['Tobacco'].std()))
 
-#Mode
-print('The mode for the Alcohol and Tobacco dataset are...: %s, %s' %(stats.mode(df['Alcohol']), stats.mode(df['Tobacco']))
+#Mode#
+print (stats.mode(df['Tobacco']))
+print (stats.mode(df['Alcohol']))
+print "The mode for the Alcohol and Tobacco dataset is", stats.mode(df['Alcohol'])[0][0], stats.mode(df['Tobacco'])[0][0]
 #Range
-print('The range for the Alcohol and Tobacco dataset are...: %s, %s' %(max(df['Alcohol'])-min(df['Alcohol']), max(df['Tobacco'])-min(df['Tobacco']))
+print "The range for the Alcohol and Tobacco dataset is", max(df['Alcohol']) - min(df['Alcohol']), max(df['Tobacco']) - min(df['Tobacco'])
 #Variance
 print('The variance for the Alcohol and Tobacco dataset are...: %s, %s' %(df['Alcohol'].var(), df['Tobacco'].var()))
 
