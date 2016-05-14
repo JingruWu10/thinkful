@@ -5,18 +5,23 @@ Created on Mon May 02 11:46:46 2016
 @author: v-wujin
 """
 
+import time
 import requests
+from dateutil.parser import parse
+import collections
+import sqlite3 as lite
+import pandas as pd
+import matplotlib.pyplot as plt
+import collections
 r = requests.get('http://www.citibikenyc.com/stations/json')
 from pandas.io.json import json_normalize
 df = json_normalize(r.json()['stationBeanList'])
-
-import sqlite3 as lite
-from dateutil.parser import parse
-import collections
-import time
-con = lite.connect('citi_bike.db')
+station_ids = df['id'].tolist() 
+station_ids = ['_' + str(x) + ' INT' for x in station_ids]
+con = lite.connect('citibike.db')
 cur = con.cursor()
-
+with con:
+    cur.execute("CREATE TABLE available_bikes ( execution_time INT, " +  ", ".join(station_ids) + ");")
 for i in range(60):
     r = requests.get('http://www.citibikenyc.com/stations/json')
     exec_time = parse(r.json()['executionTime'])
